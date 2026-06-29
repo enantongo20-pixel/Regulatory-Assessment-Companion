@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medicines Regulatory Assessment Companion | Capstone Project</title>
+  <style>
+    :root {
+      --navy: #202a68;
+      --deep-navy: #111a4c;
+      --blue: #245f9e;
+      --mid-blue: #2f70ad;
+      --sky: #00a0df;
+      --gold: #f7c948;
+      --white: #ffffff;
+      --ink: #132033;
+      --text: #35475e;
+      --muted: #6d7c8f;
+      --soft: #f4f8fc;
+      --panel: #ffffff;
+      --line: rgba(19, 32, 51, 0.14);
+      --shadow: 0 22px 60px rgba(15, 28, 58, 0.18);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #f5f8fc;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .top-notice {
+      padding: 8px 22px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+      color: #25344a;
+      font-size: 13px;
+    }
+
+    .top-notice-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .flag {
+      width: 24px;
+      height: 15px;
+      border-radius: 2px;
+      background:
+        linear-gradient(#1f4f9a 0 50%, transparent 50%),
+        repeating-linear-gradient(0deg, #c83b3b 0 2px, #ffffff 2px 4px);
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      flex: 0 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--navy);
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(13, 25, 68, 0.18);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      min-height: 76px;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 280px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: #ffffff;
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .brand-text span {
+      display: block;
+      margin-top: 3px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      padding: 8px 9px;
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .outline-btn {
+      padding: 9px 13px;
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+      background: transparent;
+    }
+
+    .hero {
+      min-height: 680px;
+      position: relative;
+      overflow: hidden;
+      color: #ffffff;
+      background:
+        linear-gradient(90deg, rgba(15, 34, 78, 0.12) 0%, rgba(15, 34, 78, 0.46) 38%, rgba(17, 26, 76, 0.96) 62%, rgba(17, 26, 76, 0.98) 100%),
+        radial-gradient(circle at 36% 48%, rgba(72, 220, 226, 0.44), transparent 17rem),
+        linear-gradient(120deg, #e8f5fb 0%, #79cbdc 34%, #23316e 66%, #111a4c 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.58) 0 1px, transparent 1px 100%),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0 1px, transparent 1px 100%);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(90deg, black 0%, black 45%, transparent 75%);
+      opacity: 0.2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: 60px;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.06) 0 2px, transparent 3px);
+      background-size: 22px 22px;
+      opacity: 0.55;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      min-height: 680px;
+      margin: 0 auto;
+      padding: 76px 22px 70px;
+      display: grid;
+      grid-template-columns: minmax(330px, 0.9fr) minmax(0, 1.1fr);
+      gap: 52px;
+      align-items: center;
+    }
+
+    .science-visual {
+      position: relative;
+      min-height: 520px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+    }
+
+    .portrait {
+      position: absolute;
+      left: 2%;
+      bottom: 0;
+      width: 300px;
+      height: 430px;
+      border-radius: 160px 160px 22px 22px;
+      background:
+        radial-gradient(circle at 52% 22%, #f2c7b0 0 54px, transparent 56px),
+        linear-gradient(90deg, transparent 0 70px, #2b2730 70px 118px, transparent 118px),
+        linear-gradient(160deg, transparent 0 36%, #f2c7b0 36% 58%, transparent 58%),
+        linear-gradient(180deg, transparent 0 45%, #dfeeff 45% 100%);
+      filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.24));
+      opacity: 0.92;
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      left: 86px;
+      top: 112px;
+      width: 175px;
+      height: 54px;
+      border: 6px solid rgba(255, 255, 255, 0.88);
+      border-left-width: 10px;
+      border-radius: 8px 22px 22px 8px;
+      transform: rotate(-4deg);
+      background: rgba(167, 227, 240, 0.26);
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      left: 48px;
+      top: 82px;
+      width: 150px;
+      height: 215px;
+      border-radius: 50% 42% 52% 44%;
+      background: rgba(22, 28, 42, 0.94);
+      z-index: -1;
+    }
+
+    .data-pane {
+      position: absolute;
+      right: 10px;
+      top: 72px;
+      width: 310px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(10, 110, 150, 0.18);
+      backdrop-filter: blur(2px);
+    }
+
+    .bars {
+      height: 120px;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .bars span {
+      flex: 1;
+      min-width: 12px;
+      background: linear-gradient(180deg, #ffffff, #51c7e6);
+      opacity: 0.78;
+    }
+
+    .bars span:nth-child(1) { height: 36%; }
+    .bars span:nth-child(2) { height: 58%; }
+    .bars span:nth-child(3) { height: 48%; }
+    .bars span:nth-child(4) { height: 76%; }
+    .bars span:nth-child(5) { height: 66%; }
+    .bars span:nth-child(6) { height: 92%; }
+    .bars span:nth-child(7) { height: 82%; }
+
+    .data-pane strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .data-pane p {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+    }
+
+    .hero-copy {
+      padding: 24px 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 22px;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(44px, 6vw, 74px);
+      line-height: 0.96;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero-lead {
+      max-width: 670px;
+      margin: 26px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 21px;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .hero-body {
+      max-width: 700px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-weight: 900;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button.primary {
+      color: var(--deep-navy);
+      background: var(--gold);
+      box-shadow: 0 16px 34px rgba(247, 201, 72, 0.22);
+    }
+
+    .button.secondary {
+      color: #ffffff;
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .blue-band {
+      color: #ffffff;
+      background: var(--blue);
+    }
+
+    section {
+      padding: 72px 22px;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      max-width: 780px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .blue-band .section-heading p {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px 48px;
+      align-items: stretch;
+    }
+
+    .topic-link {
+      min-height: 72px;
+      display: grid;
+      place-items: center;
+      padding: 16px 18px;
+      border: 4px solid var(--navy);
+      border-radius: 6px;
+      color: #ffffff;
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .topic-link:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .about {
+      background:
+        radial-gradient(circle at 12% 10%, rgba(0, 160, 223, 0.16), transparent 22rem),
+        linear-gradient(180deg, #ffffff, #f4f8fc);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .panel {
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: 0 12px 34px rgba(15, 28, 58, 0.08);
+    }
+
+    .panel h3,
+    .support-card h3,
+    .resource-card h3,
+    .comment-card h3 {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: 21px;
+    }
+
+    .panel p,
+    .support-card p,
+    .resource-card p,
+    .comment-card p {
+      margin: 0;
+      color: var(--text);
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      padding: 16px;
+      border-left: 5px solid var(--gold);
+      background: var(--soft);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--blue);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .support {
+      background: #ffffff;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .support-card {
+      min-height: 204px;
+      padding: 22px;
+      border-top: 6px solid var(--blue);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: 0 12px 34px rgba(15, 28, 58, 0.09);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .support-card:hover,
+    .resource-card:hover,
+    .comment-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 46px rgba(15, 28, 58, 0.14);
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-bottom: 16px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      color: var(--deep-navy);
+      background: rgba(247, 201, 72, 0.34);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .resources {
+      background:
+        linear-gradient(180deg, #f4f8fc, #ffffff),
+        radial-gradient(circle at 90% 12%, rgba(0, 160, 223, 0.15), transparent 24rem);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .resource-card {
+      min-height: 230px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #ffffff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .resource-card h3 {
+      color: var(--blue);
+    }
+
+    .resource-card p {
+      margin-bottom: 20px;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      width: fit-content;
+      padding: 9px 12px;
+      border-radius: 6px;
+      color: var(--deep-navy);
+      border: 2px solid var(--gold);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .guidance {
+      color: #ffffff;
+      background:
+        linear-gradient(180deg, rgba(47, 112, 173, 0.98), rgba(36, 95, 158, 0.98)),
+        radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.16), transparent 26rem);
+    }
+
+    .guidance h2 {
+      color: #ffffff;
+    }
+
+    .guidance .section-heading p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .comment-card {
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(13, 26, 72, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .comment-card h3 {
+      color: #ffffff;
+    }
+
+    .comment-card p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .quote-box {
+      margin-top: 16px;
+      padding: 14px;
+      border-left: 5px solid var(--gold);
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 14px;
+    }
+
+    .chatbot {
+      background: #ffffff;
+    }
+
+    .chatbot-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .chatbot-panel {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: var(--deep-navy);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .chatbot-panel h3 {
+      margin: 0 0 10px;
+      font-size: 25px;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .chatbot-panel p,
+    .chatbot-panel li {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .chatbot-panel ul {
+      margin: 18px 0 0;
+      padding-left: 20px;
+    }
+
+    .chat-mock {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .chat-head {
+      padding: 18px;
+      color: #ffffff;
+      background: var(--navy);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .chat-head strong {
+      display: block;
+    }
+
+    .chat-head span {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+    }
+
+    .chat-body {
+      display: grid;
+      gap: 12px;
+      padding: 20px;
+      background:
+        linear-gradient(90deg, rgba(36, 95, 158, 0.04) 0 1px, transparent 1px),
+        linear-gradient(0deg, rgba(36, 95, 158, 0.04) 0 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .bubble {
+      max-width: 88%;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      font-size: 14px;
+    }
+
+    .bubble.bot {
+      background: rgba(36, 95, 158, 0.12);
+      color: var(--ink);
+    }
+
+    .bubble.user {
+      justify-self: end;
+      background: rgba(247, 201, 72, 0.26);
+      color: var(--ink);
+    }
+
+    .embed-note {
+      margin: 0 20px 20px;
+      padding: 14px;
+      border: 2px dashed rgba(36, 95, 158, 0.28);
+      border-radius: var(--radius);
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 13px;
+    }
+
+    .disclaimer {
+      background:
+        linear-gradient(180deg, #f4f8fc, #ffffff),
+        radial-gradient(circle at 85% 20%, rgba(247, 201, 72, 0.18), transparent 24rem);
+    }
+
+    .disclaimer-box {
+      padding: 32px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(247, 201, 72, 0.55);
+      background: #ffffff;
+      box-shadow: 0 16px 44px rgba(15, 28, 58, 0.09);
+    }
+
+    .disclaimer-box p {
+      margin: 0;
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .disclaimer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .disclaimer-card {
+      padding: 18px;
+      border-top: 5px solid var(--gold);
+      background: var(--soft);
+    }
+
+    .disclaimer-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--blue);
+    }
+
+    .disclaimer-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .final-cta {
+      padding: 72px 22px;
+      color: #ffffff;
+      background: var(--navy);
+    }
+
+    .cta-box {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .cta-box p {
+      max-width: 760px;
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    footer {
+      padding: 28px 22px;
+      background: var(--deep-navy);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 14px;
+    }
+
+    .feedback-tab {
+      position: fixed;
+      right: 0;
+      top: 48%;
+      z-index: 80;
+      writing-mode: vertical-rl;
+      padding: 13px 10px;
+      border-radius: 6px 0 0 6px;
+      color: #ffffff;
+      background: var(--sky);
+      font-weight: 900;
+      box-shadow: 0 12px 30px rgba(13, 25, 68, 0.22);
+    }
+
+    .top-button {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 80;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: #ffffff;
+      background: var(--sky);
+      font-weight: 900;
+      box-shadow: 0 12px 30px rgba(13, 25, 68, 0.22);
+    }
+
+    @media (max-width: 1040px) {
+      .header-actions {
+        display: none;
+      }
+
+      .hero-inner,
+      .about-grid,
+      .chatbot-layout,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+
+      .science-visual {
+        min-height: 360px;
+      }
+
+      .portrait {
+        left: 8%;
+      }
+
+      .data-pane {
+        right: 8%;
+      }
+
+      .topic-grid,
+      .support-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .resource-grid,
+      .comment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding-top: 46px;
+      }
+
+      .science-visual {
+        min-height: 420px;
+      }
+
+      .portrait {
+        left: -24px;
+        transform: scale(0.86);
+        transform-origin: bottom left;
+      }
+
+      .data-pane {
+        right: 0;
+        top: 34px;
+        width: 250px;
+      }
+
+      .topic-grid,
+      .support-grid,
+      .resource-grid,
+      .comment-grid,
+      .metric-row,
+      .disclaimer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 56px 18px;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .feedback-tab,
+      .top-button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-notice">
+    <div class="top-notice-inner">
+      <span class="flag" aria-hidden="true"></span>
+      <span>Capstone prototype for learning purposes. This is not an official regulatory authority website.</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="Regulatory Assessment Companion home">
+        <span class="brand-mark">RA</span>
+        <span class="brand-text">
+          <strong>Medicines Regulatory</strong>
+          <span>Assessment Companion</span>
+        </span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#topics">Topics</a>
+        <a href="#support">Support</a>
+        <a href="#resources">Resources</a>
+        <a href="#guidance">Guidance</a>
+        <a href="#chatbot">Chatbot</a>
+      </nav>
+
+      <div class="header-actions" aria-label="Utility actions">
+        <a class="outline-btn" href="#resources">Search</a>
+        <a class="outline-btn" href="#topics">Menu</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="science-visual" aria-label="Scientific regulatory assessment visual">
+          <div class="portrait" aria-hidden="true"></div>
+          <div class="data-pane">
+            <strong>Assessment Intelligence</strong>
+            <p>Structured prompts, guidance navigation, and draft comments for human review.</p>
+            <div class="bars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="eyebrow">Graph Course Capstone Project</p>
+          <h1>Strengthening regulatory assessment thinking</h1>
+          <p class="hero-lead">
+            A Medicines Regulatory Assessment Companion for guidance navigation, structured review prompts, and non-confidential draft comments.
+          </p>
+          <p class="hero-body">
+            This one-page portfolio presents a responsible AI-supported companion for medicines regulatory work. It is designed to support assessors, not replace official guidance, expert judgement, or formal regulatory decisions.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#chatbot">Explore Chatbot Space</a>
+            <a class="button secondary" href="#support">View Assessment Areas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics" class="blue-band">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Featured Topics</h2>
+          <p>Quick access areas inspired by regulatory agency layouts, adapted for this capstone companion.</p>
+        </div>
+
+        <div class="topic-grid">
+          <a class="topic-link" href="#support">API Quality</a>
+          <a class="topic-link" href="#support">FPP Quality</a>
+          <a class="topic-link" href="#support">Specifications</a>
+          <a class="topic-link" href="#support">Stability</a>
+          <a class="topic-link" href="#support">Bioequivalence</a>
+          <a class="topic-link" href="#support">Labelling</a>
+          <a class="topic-link" href="#support">GMP</a>
+          <a class="topic-link" href="#resources">Guidance Documents</a>
+          <a class="topic-link" href="#guidance">Draft Comments</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>About the Companion</h2>
+          <p>
+            The companion supports medicines regulatory assessment by helping users organize review questions, identify evidence gaps, navigate guidance, and prepare draft wording for expert review.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel">
+            <h3>Project Purpose</h3>
+            <p>
+              To demonstrate how generative AI can be applied responsibly in a regulated professional context. The companion is a learning prototype that brings together public guidance, approved non-confidential assessor themes, and a chatbot interface.
+            </p>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>AI</strong>
+                <span>Decision support</span>
+              </div>
+              <div class="metric">
+                <strong>CTD</strong>
+                <span>Dossier structure</span>
+              </div>
+              <div class="metric">
+                <strong>QA</strong>
+                <span>Human review</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>How It Helps</h3>
+            <p>
+              The site gives assessors a clear starting point for common technical areas, while the chatbot space can later host a Botpress assistant and a link to the OpenAI GPT version of the Regulatory Assessment Companion.
+            </p>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>0</strong>
+                <span>Confidential data</span>
+              </div>
+              <div class="metric">
+                <strong>1</strong>
+                <span>Public portfolio</span>
+              </div>
+              <div class="metric">
+                <strong>GPT</strong>
+                <span>Companion link</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="support" class="support">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Assessment Support Areas</h2>
+          <p>
+            Focused modules for common medicines regulatory assessment tasks. These can later become separate pages, checklists, or chatbot knowledge-base categories.
+          </p>
+        </div>
+
+        <div class="support-grid">
+          <div class="support-card">
+            <span class="tag">API</span>
+            <h3>API Quality</h3>
+            <p>API source, specifications, analytical methods, validation or verification reports, reference standards, impurities, polymorphism, and particle size where relevant.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">FPP</span>
+            <h3>FPP Quality</h3>
+            <p>Composition, manufacturing process, batch formula, process controls, process validation, excipients, container closure, and product-specific quality risks.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">Specs</span>
+            <h3>Specifications</h3>
+            <p>Tests, limits, methods, pharmacopoeial alignment, justification of acceptance criteria, method validation, and consistency with batch and stability data.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">Stability</span>
+            <h3>Stability</h3>
+            <p>Stability protocol, storage conditions, packaging, trends, shelf-life proposal, in-use stability, zone relevance, and post-approval commitments.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">BE</span>
+            <h3>Bioequivalence</h3>
+            <p>Applicability of BE, waiver logic, comparator relevance, administration conditions, dissolution data, and when specialist BE input is needed.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">Label</span>
+            <h3>Labelling</h3>
+            <p>Consistency across SmPC, PIL, labels, dosing instructions, route of administration, storage statements, warnings, and special population information.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">GMP</span>
+            <h3>GMP</h3>
+            <p>Manufacturing site evidence, inspection status, quality system signals, contract manufacturing questions, and triggers for GMP follow-up.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="tag">Resources</span>
+            <h3>Regulatory Resources</h3>
+            <p>Public WHO PQ, ICH, and other non-confidential guidance links organized for fast assessment navigation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="resources">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Regulatory Resources</h2>
+          <p>
+            Public links for the resource layer of the companion. These are suitable for a capstone website because they avoid confidential dossier or applicant information.
+          </p>
+        </div>
+
+        <div class="resource-grid">
+          <a class="resource-card" href="https://extranet.who.int/prequal/medicines/who-medicines-prequalification-guidance" target="_blank" rel="noopener">
+            <div>
+              <h3>WHO Medicines Prequalification Guidance</h3>
+              <p>Public WHO PQ medicines guidance relevant to quality, safety, efficacy, and manufacturer submissions.</p>
+            </div>
+            <span class="resource-link">Open WHO PQ Guidance</span>
+          </a>
+
+          <a class="resource-card" href="https://extranet.who.int/prequal/medicines/finished-pharmaceutical-products" target="_blank" rel="noopener">
+            <div>
+              <h3>WHO Finished Pharmaceutical Products</h3>
+              <p>Public information on FPP prequalification routes, dossier expectations, and assessment pathways.</p>
+            </div>
+            <span class="resource-link">Open FPP Page</span>
+          </a>
+
+          <a class="resource-card" href="https://www.who.int/news-room/fact-sheets/detail/prequalification-of-medicines-by-who" target="_blank" rel="noopener">
+            <div>
+              <h3>WHO Prequalification Overview</h3>
+              <p>Overview of WHO prequalification and its role in access to quality-assured health products.</p>
+            </div>
+            <span class="resource-link">Open WHO Overview</span>
+          </a>
+
+          <a class="resource-card" href="https://www.ich.org/page/quality-guidelines" target="_blank" rel="noopener">
+            <div>
+              <h3>ICH Quality Guidelines</h3>
+              <p>Quality guidance including stability, validation, impurities, pharmaceutical development, quality risk management, and CTD quality topics.</p>
+            </div>
+            <span class="resource-link">Open ICH Quality</span>
+          </a>
+
+          <a class="resource-card" href="https://www.ich.org/page/efficacy-guidelines" target="_blank" rel="noopener">
+            <div>
+              <h3>ICH Efficacy Guidelines</h3>
+              <p>Clinical and efficacy-related guidance relevant to benefit-risk thinking, clinical studies, and good clinical practice.</p>
+            </div>
+            <span class="resource-link">Open ICH Efficacy</span>
+          </a>
+
+          <a class="resource-card" href="https://www.ich.org/page/multidisciplinary-guidelines" target="_blank" rel="noopener">
+            <div>
+              <h3>ICH Multidisciplinary Guidelines</h3>
+              <p>Cross-cutting guidance such as CTD structure and mutagenic impurity principles.</p>
+            </div>
+            <span class="resource-link">Open ICH Multidisciplinary</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="guidance" class="guidance">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Current Assessor Guidance and Draft Comments</h2>
+          <p>
+            This section is written as non-confidential capstone content. It can later be updated with approved internal guidance extracts and sanitized draft comments.
+          </p>
+        </div>
+
+        <div class="comment-grid">
+          <div class="comment-card">
+            <span class="tag">Assessor Guidance</span>
+            <h3>Assessment Framing</h3>
+            <p>Start with the regulatory question, identify the CTD location, summarize the evidence provided, and define the potential quality, safety, or efficacy impact.</p>
+            <div class="quote-box">Prompt pattern: Identify the issue, the affected dossier section, the missing evidence, and the requested corrective action.</div>
+          </div>
+
+          <div class="comment-card">
+            <span class="tag">Draft Comments</span>
+            <h3>Clear Deficiency Wording</h3>
+            <p>Comments should be specific, actionable, proportionate, and supported by the submitted information. Avoid vague or unsupported statements.</p>
+            <div class="quote-box">Example style: Please provide the complete signed and dated specification, analytical procedure, and validation or verification report.</div>
+          </div>
+
+          <div class="comment-card">
+            <span class="tag">Classification</span>
+            <h3>Screening vs Assessment</h3>
+            <p>Screening confirms whether required documents are present. Assessment evaluates whether the submitted evidence is scientifically acceptable.</p>
+            <div class="quote-box">Use the companion to route comments to the correct stage and avoid mixing administrative gaps with technical conclusions.</div>
+          </div>
+
+          <div class="comment-card">
+            <span class="tag">Quality Review</span>
+            <h3>Evidence Alignment</h3>
+            <p>Check consistency between Module 3 documents, QOS or QIS summaries, certificates of analysis, batch data, and proposed commitments.</p>
+            <div class="quote-box">Prompt pattern: Compare specifications, methods, validation data, COAs, and stability conclusions for alignment.</div>
+          </div>
+
+          <div class="comment-card">
+            <span class="tag">Escalation</span>
+            <h3>Specialist Input</h3>
+            <p>Flag questions that may need quality, clinical, bioequivalence, GMP, or labelling assessor input before a conclusion is reached.</p>
+            <div class="quote-box">Examples: uncertain BE applicability, unusual impurity controls, complex formulation risks, or unresolved GMP status.</div>
+          </div>
+
+          <div class="comment-card">
+            <span class="tag">Review</span>
+            <h3>Human Verification</h3>
+            <p>AI-generated outputs are drafts. A qualified assessor must confirm the accuracy, tone, scientific basis, and procedural appropriateness.</p>
+            <div class="quote-box">Review check: Is the comment accurate, necessary, proportionate, and supported by the evidence?</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chatbot" class="chatbot">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Companion Chatbot</h2>
+          <p>
+            The final version can embed a Botpress webchat here and include a link to the OpenAI GPT version of the Regulatory Assessment Companion.
+          </p>
+        </div>
+
+        <div class="chatbot-layout">
+          <div class="chatbot-panel">
+            <h3>Botpress Assistant Scope</h3>
+            <p>The chatbot should answer using public guidance and approved non-confidential material only.</p>
+            <ul>
+              <li>Support regulatory assessment thinking and structured review.</li>
+              <li>Distinguish screening comments from assessment comments.</li>
+              <li>Draft non-confidential comment wording for human review.</li>
+              <li>Flag uncertainty and recommend checking official guidance.</li>
+              <li>Avoid final regulatory decisions and confidential dossier content.</li>
+            </ul>
+            <div class="hero-actions">
+              <a class="button primary" href="#">Open GPT Placeholder</a>
+              <a class="button secondary" href="#disclaimer">Read Disclaimer</a>
+            </div>
+          </div>
+
+          <div class="chat-mock" aria-label="Botpress chatbot placeholder">
+            <div class="chat-head">
+              <div>
+                <strong>Regulatory Assessment Companion</strong>
+                <span>Botpress webchat placeholder</span>
+              </div>
+              <span>Ready</span>
+            </div>
+            <div class="chat-body">
+              <div class="bubble bot">Hello. I can help structure medicines regulatory assessment questions and draft non-confidential comments for review.</div>
+              <div class="bubble user">What should I check for an API specification?</div>
+              <div class="bubble bot">Check completeness of tests, justified limits, analytical methods, validation or verification status, reference standards, impurity controls, and alignment with batch data.</div>
+            </div>
+            <div class="embed-note">
+              Paste the official Botpress embed script before the closing body tag when the bot is ready. Keep the knowledge base limited to public or approved non-confidential content.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="disclaimer" class="disclaimer">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>Disclaimer</h2>
+          <p>A clear boundary statement for responsible use in a regulated professional context.</p>
+        </div>
+
+        <div class="disclaimer-box">
+          <p>
+            The Medicines Regulatory Assessment Companion is a capstone prototype designed to support assessment thinking, learning, guidance navigation, and non-confidential drafting. It does not replace official guidance, expert judgement, internal quality procedures, or formal regulatory decisions.
+          </p>
+
+          <div class="disclaimer-grid">
+            <div class="disclaimer-card">
+              <strong>No official decision-making</strong>
+              <span>The companion does not approve, reject, prequalify, or make binding regulatory conclusions.</span>
+            </div>
+            <div class="disclaimer-card">
+              <strong>Human review required</strong>
+              <span>All outputs must be checked by a qualified assessor before professional use.</span>
+            </div>
+            <div class="disclaimer-card">
+              <strong>Confidentiality protected</strong>
+              <span>Applicant-specific data, unpublished reports, and confidential internal documents should not be entered into the chatbot.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="cta-box">
+        <div>
+          <h2>Capstone-ready portfolio concept</h2>
+          <p>
+            A polished one-page website inspired by regulatory agency layouts, adapted for a medicines assessment AI companion with public resources, draft guidance patterns, and a responsible-use disclaimer.
+          </p>
+        </div>
+        <a class="button primary" href="#home">Back to Top</a>
+      </div>
+    </section>
+  </main>
+
+  <a class="feedback-tab" href="#chatbot">Feedback</a>
+  <a class="top-button" href="#home">Top</a>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Medicines Regulatory Assessment Companion | Graph Course Capstone</span>
+      <span>No email displayed. No confidential data included.</span>
+    </div>
+  </footer>
+
+  <!--
+    Botpress embed placeholder:
+    When your Botpress bot is ready, paste the official Botpress webchat embed scripts here.
+  -->
+</body>
+</html>
